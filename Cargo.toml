@@ -1,0 +1,8 @@
+[package]
+name = "p0f_api"
+version = "0.1.0"
+authors = ["emk <rust@emk.one.pl>"]
+license = "WTFPL OR MIT OR Apache-2.0"
+description = "Interface for querying p0f unix socket API."
+keywords = ["p0f"]
+repository = "https://github.com/emkw/rust-p0f_api"
