@@ -55,14 +55,14 @@ impl P0f {
 
 		if let Some(ref mut socket) = self.socket {
 			let mut addr_buff: [u8; 16] = [0; 16];
-			let addr_type = match addr {
-				&IpAddr::V4(addr_v4) => {
+			let addr_type = match *addr {
+				IpAddr::V4(ref addr_v4) => {
 					let addr_data = addr_v4.octets();
 					addr_buff[0..addr_data.len()].clone_from_slice(&addr_data);
 
 					raw::P0F_ADDR_IPV4
 				},
-				&IpAddr::V6(addr_v6) => {
+				IpAddr::V6(ref addr_v6) => {
 					let addr_data = addr_v6.segments();
 					for (i, segment) in addr_data.iter().enumerate() {
 						let buff_idx = 2 * i;
