@@ -157,6 +157,11 @@ pub struct P0fResponse {
 	pub distance: i16,
 
 	/// Host is lying about U-A / Server.
+	///
+	/// NOTE: If User-Agent is not present at all, this value stays at 0.
+	///
+	/// * `1` means OS difference (possibly due to proxying).
+	/// * `2` means an outright mismatch.
 	pub bad_sw: u8,
 	/// Match quality.
 	pub os_match_q: u8,
@@ -202,6 +207,36 @@ impl P0fResponse {
 			link_type: string_from_sz_slice(&resp.link_type),
 			language: string_from_sz_slice(&resp.language),
 		}
+	}
+
+	/// Returns `true` if Match quality has `P0F_MATCH_FUZZY` flag set
+	/// (e.g., TTL or DF difference).
+	#[inline]
+	pub fn os_match_fuzzy(&self) -> bool {
+		self.os_match_q & raw::P0F_MATCH_FUZZY != 0
+	}
+
+	/// Returns `true` if Match quality has `P0F_MATCH_GENERIC` flag set
+	/// (generic signature).
+	#[inline]
+	pub fn os_match_generic(&self) -> bool {
+		self.os_match_q & raw::P0F_MATCH_GENERIC != 0
+	}
+
+	/// Returns `true` if there is an OS difference (`bad_sw` >= 1).
+	///
+	/// NOTE: This will ever return `true` only if p0f encountered some http software headers.
+	#[inline]
+	pub fn os_difference(&self) -> bool {
+		self.bad_sw >= 1
+	}
+
+	/// Returns `true` if there's an OS difference (`bad_sw` >= 2).
+	///
+	/// NOTE: This will ever return `true` only if p0f encountered some http software headers.
+	#[inline]
+	pub fn os_mismatch(&self) -> bool {
+		self.bad_sw >= 2
 	}
 }
 
