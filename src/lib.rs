@@ -179,6 +179,7 @@ pub struct P0fResponse {
 }
 
 impl P0fResponse {
+	/// Conversion from `raw::p0f_api_response`.
 	fn from_raw_response(resp: &raw::p0f_api_response) -> Self {
 		debug_assert_eq!(resp.magic, raw::P0F_RESP_MAGIC);
 		debug_assert_eq!(resp.status, raw::P0F_STATUS_OK);

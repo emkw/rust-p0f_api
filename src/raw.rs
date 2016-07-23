@@ -1,20 +1,35 @@
+//! Raw structures for p0f API communication.
+
+/// Max length of C string returned.
 pub const P0F_STR_MAX:       usize = 31;
+/// sizeof C string struct field returned by p0f (`P0F_STR_MAX` + trailing zero).
 pub const P0F_STR_SIZE:      usize = P0F_STR_MAX + 1;
 
+/// Query magic value.
 pub const P0F_QUERY_MAGIC:     u32 = 0x50304601;
+/// Response magic value.
 pub const P0F_RESP_MAGIC:      u32 = 0x50304602;
 
+/// Response `status` returned on bad query.
 pub const P0F_STATUS_BADQUERY: u32 = 0x00;
+/// Response `status` returned on match.
 pub const P0F_STATUS_OK:       u32 = 0x10;
+/// Response `status` returned on no match.
 pub const P0F_STATUS_NOMATCH:  u32 = 0x20;
 
+/// `addr_type` for `IPv4` query.
 pub const P0F_ADDR_IPV4:        u8 = 0x04;
+/// `addr_type` for `IPv6` query.
 pub const P0F_ADDR_IPV6:        u8 = 0x06;
 
+/// Response `os_match_q` fuzzy bit.
 pub const P0F_MATCH_FUZZY:      u8 = 0x01;
+/// Response `os_match_q` generic bit.
 pub const P0F_MATCH_GENERIC:    u8 = 0x02;
 
+/// sizeof `p0f_api_query`.
 pub const SIZEOF_QUERY:      usize = 21;
+/// sizeof `p0f_api_response`.
 pub const SIZEOF_RESPONSE:   usize = 232;
 
 #[repr(C,packed)]
