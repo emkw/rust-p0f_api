@@ -91,7 +91,7 @@ impl P0f {
 					io::ErrorKind::InvalidData,
 					format!(
 						"p0f: invalid magic number received: 0x{:x}. Should be: 0x{:x}.",
-						resp.magic,
+						{resp.magic},
 						raw::P0F_RESP_MAGIC
 					)
 				));
@@ -107,14 +107,15 @@ impl P0f {
 					return Ok(None),
 				raw::P0F_STATUS_OK =>
 					return Ok(Some(P0fResponse::from_raw_response(&resp))),
-				_ =>
+				_ => {
 					return Err(io::Error::new(
 						io::ErrorKind::InvalidData,
 						format!(
 							"p0f: Unknown status received: 0x{:x}. [Please report this to p0f_api crate author].",
-							resp.status
+							{resp.status}
 						)
-					)),
+					))
+				}
 			}
 			
 		}
@@ -186,8 +187,8 @@ pub struct P0fResponse {
 impl P0fResponse {
 	/// Conversion from `raw::p0f_api_response`.
 	fn from_raw_response(resp: &raw::p0f_api_response) -> Self {
-		debug_assert_eq!(resp.magic, raw::P0F_RESP_MAGIC);
-		debug_assert_eq!(resp.status, raw::P0F_STATUS_OK);
+		debug_assert_eq!({resp.magic}, raw::P0F_RESP_MAGIC);
+		debug_assert_eq!({resp.status}, raw::P0F_STATUS_OK);
 
 		P0fResponse {
 			first_seen: resp.first_seen as i64,

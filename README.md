@@ -11,7 +11,7 @@ It has been developed with p0f version 3.09b.
 ### Cargo.toml:
 ```toml
 [dependencies]
-p0f_api = "~0.1.1"
+p0f_api = "~0.1.2"
 ```
 
 ### Code:
