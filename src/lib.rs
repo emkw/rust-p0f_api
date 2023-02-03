@@ -107,7 +107,7 @@ impl P0f {
 					return Ok(None),
 				raw::P0F_STATUS_OK =>
 					return Ok(Some(P0fResponse::from_raw_response(&resp))),
-				_ => {
+				_ =>
 					return Err(io::Error::new(
 						io::ErrorKind::InvalidData,
 						format!(
@@ -115,7 +115,6 @@ impl P0f {
 							{resp.status}
 						)
 					))
-				}
 			}
 			
 		}
