@@ -16,3 +16,6 @@ p0f_api = "~0.1.2"
 
 ### Code:
 Please see `examples/query.rs`.
+
+#### Minimum Supported Rust Version (MSRV):
+1.10
